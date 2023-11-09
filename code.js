@@ -27,6 +27,8 @@ window.addEventListener('load', () => {
     mainCard.style.display = 'flex';
     mainCard.style.flexDirection = 'column';
     mainCard.style.width = '25%';
+
+    button.textContent = "Click for MORE Puppies!";
 });
 
 //Make the HMTL button dynamic
