@@ -47,23 +47,25 @@ const createPuppyCard = (puppy) => {
 
     // Displays a list of all puppies in the roster (make the mainCard disappear)
     const allPuppiesButton = document.querySelector(`#allPuppies`);
-    allPuppiesButton.addEventListener('click', async() => {
-        // Clear the current content of mainCard for a list of puppies
-        main.innerHTML = '';
-        const puppyBowlAPICall = await fetch('https://fsa-puppy-bowl.herokuapp.com/api/2310-FSA-ET-WEB-FT-SF/players');
-        const puppyBowlAPICallResult = await puppyBowlAPICall.json();
-        const puppyBowlAPIData = puppyBowlAPICallResult.data;
-        
-        for(i = 0; i < puppyBowlAPIData.players.length; i++) {
-            const puppyListItemName = puppyBowlAPIData.players[i].name;
-            console.log(puppyListItemName);
-        };
+    allPuppiesButton.addEventListener('click', async () => {
+    // Clear the current content of mainCard for a list of puppies
+    main.innerHTML = '';
+    const puppyBowlAPICall = await fetch('https://fsa-puppy-bowl.herokuapp.com/api/2310-FSA-ET-WEB-FT-SF/players');
+    const puppyBowlAPICallResult = await puppyBowlAPICall.json();
+    const puppyBowlAPIData = puppyBowlAPICallResult.data;
 
-        
+    const puppyList = document.createElement('ul');
+    main.append(puppyList);
 
-        const puppyList = [puppyBowlAPIData.name];
-    
-    });
+    for (let i = 0; i < puppyBowlAPIData.players.length; i++) {
+        const puppyListItemName = puppyBowlAPIData.players[i].name;
+
+        const puppyListItem = document.createElement('li');
+        puppyListItem.textContent = puppyListItemName;
+
+        puppyList.appendChild(puppyListItem);
+    }
+});
 
     return mainCard;
 };
