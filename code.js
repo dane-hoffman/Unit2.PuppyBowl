@@ -19,14 +19,17 @@ button.addEventListener('click', async() => {
     //Select a random puppyPlayer from the puppyPlayers[], provide that name in the 'card.'
     const singlePuppyPlayer = Math.floor(Math.random() * puppyPlayers.length);
     const puppyName = puppyPlayers[singlePuppyPlayer].name;
+    const puppyBreed = puppyPlayers[singlePuppyPlayer].breed;
 
     console.log(puppyName);
 
     //Create the 'mainCard' element
     //Set the puppyName equal to the name of a puppy object from the API
     const mainCard = document.createElement('section');
+    mainCard.innerHTML = '';
     mainCard.innerHTML = `
     <h4>Puppy: ${puppyName}</h4>
+    <h4>Breed: ${puppyBreed}</h4>
     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
     Donec ut ante nec justo eleifend venenatis.
     Proin sollicitudin egestas erat, eu.</p>
@@ -43,7 +46,10 @@ button.addEventListener('click', async() => {
         //Displays a list of all puppies in the roster (make the mainCard dissappear)
             //Clicking on single puppy in list sets the mainCard values to that puppy
 
+    //Reset the mainCard element each time the 'newPuppy' <button> is clicked
+    // mainCard.innerHTML = '';
 
 });
+
 
 console.log(main);
