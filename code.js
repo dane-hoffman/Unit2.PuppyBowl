@@ -93,18 +93,18 @@ const createPuppyCard = (puppy) => {
 // Select the 'Create a New Player' button inside mainCard
 const createNewPlayerButton = document.querySelector(`#createNewPlayerButton`);
 // Add an event listener to the 'Create a New Player' button
-createNewPlayerButton.addEventListener('click', () => {
+createNewPlayerButton.addEventListener('click', async () => {
     // Clear the current content of main for the form
     main.innerHTML = '';
     // Create a form for creating a new player
     const newPlayerForm = document.createElement('form');
     newPlayerForm.innerHTML = `
         <label for="newPlayerName">Player Name:</label>
-        <input type="text" id="newPlayerName" name="newPlayerName" required>
+        <input type="text" id="newPlayerName" required>
         <label for="newPlayerBreed">Player Breed:</label>
-        <input type="text" id="newPlayerBreed" name="newPlayerBreed" required>
+        <input type="text" id="newPlayerBreed" required>
         <label for="newPlayerImage">Player Image:</label>
-        <input type="file" id="newPlayerImage" name="newPlayerImage" accept="image/*" required>
+        <input type="url" id="newPlayerImage" required>
         <button type="submit">Create Player</button>
     `;
     // Add an event listener to the form for submission
@@ -112,27 +112,36 @@ createNewPlayerButton.addEventListener('click', () => {
         event.preventDefault();
 
         // Get form data
-        const newPlayerName = document.getElementById('newPlayerName').value;
-        const newPlayerBreed = document.getElementById('newPlayerBreed').value;
-        const newPlayerImageFile = document.getElementById('newPlayerImage').files[0];
+        const newPlayerName = document.querySelector('#newPlayerName').value;
+        const newPlayerBreed = document.querySelector('#newPlayerBreed').value;
+        const newPlayerImage = document.querySelector('#newPlayerImage').value;
 
-        // Use FormData to handle file upload
-        const formData = new FormData();
-        formData.append('name', newPlayerName);
-        formData.append('breed', newPlayerBreed);
-        formData.append('image', newPlayerImageFile);
+        try {
+            // Perform a POST request to create a new player
+            const response = await fetch('https://fsa-puppy-bowl.herokuapp.com/api/2310-FSA-ET-WEB-FT-SF/players', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    name: newPlayerName,
+                    breed: newPlayerBreed,
+                    imageUrl: newPlayerImage,
+                }),
+            });
 
-        // Perform a POST request to create a new player
-        const response = await fetch('https://fsa-puppy-bowl.herokuapp.com/api/2310-FSA-ET-WEB-FT-SF/players', {
-            method: 'POST',
-            body: formData,
-        });
+            if (!response.ok) {
+                throw new Error(`Failed to create a new player. Status: ${response.status}`);
+            }
 
-        // Handle the response
-        const result = await response.json();
-        
-        // Display a success message or handle the result as needed
-        alert(`New player "${newPlayerName}" created!`);
+            const result = await response.json();
+            // Handle the result as needed
+            alert(`New player "${newPlayerName}" created!`);
+        } catch (error) {
+            console.error('Error during POST request:', error);
+            // Handle the error, e.g., display an error message to the user
+            alert('Error creating a new player. Please try again.');
+        }
     });
 
     // Append the newPlayerForm to the main element
@@ -173,4 +182,3 @@ button.addEventListener('click', async () => {
 });
 
 console.log(main);
-
