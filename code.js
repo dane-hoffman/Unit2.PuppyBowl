@@ -46,21 +46,20 @@ button.addEventListener('click', async() => {
     mainCard.style.flexDirection = 'column';
     mainCard.style.width = '25%';
 
-    //On click, Create another button to 'view MORE puppies'
+    //Click View Random Puppy, selects another random puppy
     const randomPuppyButton = document.querySelector(`#randomPuppy`);
     randomPuppyButton.addEventListener('click', () => {
+        mainCard.innerHTML = ``;
         console.log('randomPuppy');
 
     });
-    
+
+    //Displays a list of all puppies in the roster (make the mainCard dissappear)
     const allPupppiesButton = document.querySelector(`#allPuppies`);
     allPupppiesButton.addEventListener('click', () => {
         console.log(`allPuppies`);
     });
-    
-    //Displays a list of all puppies in the roster (make the mainCard dissappear)
-    
-            //Clicking on single puppy in list sets the mainCard values to that puppy
+        //Clicking on single puppy in list sets the mainCard values to that puppy
 
     //Reset the mainCard element each time the 'newPuppy' <button> is clicked
     // mainCard.innerHTML = '';
