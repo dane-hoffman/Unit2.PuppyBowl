@@ -14,9 +14,13 @@ button.addEventListener('click', async() => {
     const puppyBowlAPICallResult = await puppyBowlAPICall.json();
     const puppyBowlAPIData = puppyBowlAPICallResult.data;
     const puppyPlayers = puppyBowlAPIData.players;
-
     console.log(puppyPlayers);
-    const puppyName = puppyPlayers[0].name;
+
+    //Select a random puppyPlayer from the puppyPlayers[], provide that name in the 'card.'
+    const singlePuppyPlayer = Math.floor(Math.random() * puppyPlayers.length);
+    const puppyName = puppyPlayers[singlePuppyPlayer].name;
+
+    console.log(puppyName);
 
     //Create the 'mainCard' element
     //Set the puppyName equal to the name of a puppy object from the API
