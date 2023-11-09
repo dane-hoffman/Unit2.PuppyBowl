@@ -23,6 +23,7 @@ const createPuppyCard = (puppy) => {
         Proin sollicitudin egestas erat, eu.</p>
         <button id=randomPuppy> View A Random Puppy </button>
         <button id=allPuppies> View ALL Puppies </button>
+        <button id=createNewPlayerButton> Create a New Player </button>
     `;
     // Append the mainCard to the main element in the HTML
     main.append(mainCard);
@@ -54,39 +55,88 @@ const createPuppyCard = (puppy) => {
 
     // Select the 'View ALL Puppies' button inside mainCard
     const allPuppiesButton = document.querySelector(`#allPuppies`);
-allPuppiesButton.addEventListener('click', async () => {
-    // Clear the current content of mainCard for a list of puppies
+    allPuppiesButton.addEventListener('click', async () => {
+        // Clear the current content of mainCard for a list of puppies
+        main.innerHTML = '';
+        // API Call to fetch the full list of puppies
+        const puppyBowlAPICall = await fetch('https://fsa-puppy-bowl.herokuapp.com/api/2310-FSA-ET-WEB-FT-SF/players');
+        const puppyBowlAPICallResult = await puppyBowlAPICall.json();
+        const puppyBowlAPIData = puppyBowlAPICallResult.data;
+
+        // Create a new unordered list element to display the list of puppies
+        const puppyList = document.createElement('ul');
+        // Append the puppyList to the main element
+        main.append(puppyList);
+
+        // Loop through the list of puppies and create list items for each
+        for (let i = 0; i < puppyBowlAPIData.players.length; i++) {
+            const puppyListItemName = puppyBowlAPIData.players[i].name;
+
+            // Create a new list item element with the puppy's name
+            const puppyListItem = document.createElement('li');
+            puppyListItem.textContent = puppyListItemName;
+
+            // Add an event listener to the list item for click events
+            puppyListItem.addEventListener('click', async () => {
+                // Clear the current content of main for a new Puppy
+                main.innerHTML = '';
+                // Create the 'mainCard' element for the selected puppy
+                const selectedPuppy = puppyBowlAPIData.players[i];
+                createPuppyCard(selectedPuppy);
+            });
+
+            // Append the puppyListItem to the puppyList
+            puppyList.appendChild(puppyListItem);
+        }
+    });
+
+// Select the 'Create a New Player' button inside mainCard
+const createNewPlayerButton = document.querySelector(`#createNewPlayerButton`);
+// Add an event listener to the 'Create a New Player' button
+createNewPlayerButton.addEventListener('click', () => {
+    // Clear the current content of main for the form
     main.innerHTML = '';
-    // API Call to fetch the full list of puppies
-    const puppyBowlAPICall = await fetch('https://fsa-puppy-bowl.herokuapp.com/api/2310-FSA-ET-WEB-FT-SF/players');
-    const puppyBowlAPICallResult = await puppyBowlAPICall.json();
-    const puppyBowlAPIData = puppyBowlAPICallResult.data;
+    // Create a form for creating a new player
+    const newPlayerForm = document.createElement('form');
+    newPlayerForm.innerHTML = `
+        <label for="newPlayerName">Player Name:</label>
+        <input type="text" id="newPlayerName" name="newPlayerName" required>
+        <label for="newPlayerBreed">Player Breed:</label>
+        <input type="text" id="newPlayerBreed" name="newPlayerBreed" required>
+        <label for="newPlayerImage">Player Image:</label>
+        <input type="file" id="newPlayerImage" name="newPlayerImage" accept="image/*" required>
+        <button type="submit">Create Player</button>
+    `;
+    // Add an event listener to the form for submission
+    newPlayerForm.addEventListener('submit', async (event) => {
+        event.preventDefault();
 
-    // Create a new unordered list element to display the list of puppies
-    const puppyList = document.createElement('ul');
-    // Append the puppyList to the main element
-    main.append(puppyList);
+        // Get form data
+        const newPlayerName = document.getElementById('newPlayerName').value;
+        const newPlayerBreed = document.getElementById('newPlayerBreed').value;
+        const newPlayerImageFile = document.getElementById('newPlayerImage').files[0];
 
-    // Loop through the list of puppies and create list items for each
-    for (let i = 0; i < puppyBowlAPIData.players.length; i++) {
-        const puppyListItemName = puppyBowlAPIData.players[i].name;
+        // Use FormData to handle file upload
+        const formData = new FormData();
+        formData.append('name', newPlayerName);
+        formData.append('breed', newPlayerBreed);
+        formData.append('image', newPlayerImageFile);
 
-        // Create a new list item element with the puppy's name
-        const puppyListItem = document.createElement('li');
-        puppyListItem.textContent = puppyListItemName;
-
-        // Add an event listener to the list item for click events
-        puppyListItem.addEventListener('click', async () => {
-            // Clear the current content of main for a new Puppy
-            main.innerHTML = '';
-            // Create the 'mainCard' element for the selected puppy
-            const selectedPuppy = puppyBowlAPIData.players[i];
-            createPuppyCard(selectedPuppy);
+        // Perform a POST request to create a new player
+        const response = await fetch('https://fsa-puppy-bowl.herokuapp.com/api/2310-FSA-ET-WEB-FT-SF/players', {
+            method: 'POST',
+            body: formData,
         });
 
-        // Append the puppyListItem to the puppyList
-        puppyList.appendChild(puppyListItem);
-    }
+        // Handle the response
+        const result = await response.json();
+        
+        // Display a success message or handle the result as needed
+        alert(`New player "${newPlayerName}" created!`);
+    });
+
+    // Append the newPlayerForm to the main element
+    main.append(newPlayerForm);
 });
 
     // Return a reference to the created mainCard element
@@ -121,4 +171,6 @@ button.addEventListener('click', async () => {
         createPuppyCard(puppy);
     }
 });
+
+console.log(main);
 
