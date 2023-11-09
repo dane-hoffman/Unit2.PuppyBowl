@@ -14,6 +14,10 @@ window.addEventListener('load', () => {
     Proin sollicitudin egestas erat, eu.</p>
                             `;
     main.append(mainCard);
+
+    //Use JavaScript to manipulate CSS of an element
+    main.style.backgroundColor = 'blue';
+    main.style.display = 'inline-block';
 });
 
 console.log(main);
