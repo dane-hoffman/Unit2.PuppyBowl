@@ -2,7 +2,7 @@ body {
     background-color: oldlace;
  };
 
- /*Didn't work, moved to js to manipulate background. Worked just fine.
- /* main {
-    background-color: blue;
- } */
+ .main {
+    display: flex;
+    flex-direction: column;
+ };
