@@ -36,6 +36,7 @@ button.addEventListener('click', async() => {
     Donec ut ante nec justo eleifend venenatis.
     Proin sollicitudin egestas erat, eu.</p>
     <button id=randomPuppy> ViewARandomPuppy </button>
+    <button id=allPuppies> View ALL Puppies </button>
                             `;
     main.append(mainCard);
     
@@ -46,17 +47,16 @@ button.addEventListener('click', async() => {
     mainCard.style.width = '25%';
 
     //On click, Create another button to 'view MORE puppies'
-    const randomPuppy = document.querySelector(`#randomPuppy`);
-    console.log(randomPuppy);
+    const randomPuppyButton = document.querySelector(`#randomPuppy`);
+    randomPuppyButton.addEventListener('click', () => {
+        console.log('randomPuppy');
 
-    // const randomPuppyButton = document.createElement('button');
-    // randomPuppyButton.textContent = `View a Random Puppy`;
-    // main.append(randomPuppyButton);
+    });
+    
+    const allPupppies = document.querySelector(`#allPuppies`);
+    console.log(allPuppies);
     //Displays a list of all puppies in the roster (make the mainCard dissappear)
-        //Create a button to 'View a list of ALL Puppies';
-    const viewAllPuppiesButton = document.createElement('button');
-    viewAllPuppiesButton.textContent = `View ALL Puppies!`;
-    main.append(viewAllPuppiesButton);
+    
             //Clicking on single puppy in list sets the mainCard values to that puppy
 
     //Reset the mainCard element each time the 'newPuppy' <button> is clicked
