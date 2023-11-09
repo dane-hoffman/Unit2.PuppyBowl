@@ -17,12 +17,12 @@ window.addEventListener('load', () => {
     main.append(mainCard);
 
     //Use JavaScript to manipulate CSS of an element
-    main.style.backgroundColor = 'lightblue';
+    mainCard.style.backgroundColor = 'lightblue';
     // main.style.display = 'inline-block';
     // main.style.width = '15 px';
-    main.style.display = 'flex';
-    main.style.flexDirection = 'column';
-    main.style.width = '25%';
+    mainCard.style.display = 'flex';
+    mainCard.style.flexDirection = 'column';
+    mainCard.style.width = '25%';
 });
 
 console.log(main);
