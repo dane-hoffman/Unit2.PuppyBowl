@@ -9,6 +9,9 @@ window.addEventListener('load', () => {
     const mainCard = document.createElement('section');
     mainCard.innerHTML = `
     <h4>Puppy: ${puppyName}</h4>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+    Donec ut ante nec justo eleifend venenatis.
+    Proin sollicitudin egestas erat, eu.</p>
                             `;
     main.append(mainCard);
 });
