@@ -8,6 +8,15 @@ const puppyName = "${puppyName}";
 //Create a 'card' and render it to HTML
 window.addEventListener('load', () => {
 
+    
+
+
+    //Use JavaScript to manipulate CSS of <button>
+    button.textContent = "Click for MORE Puppies!";
+});
+
+//Make the HMTL button dynamic
+button.addEventListener('click', async() => {
     //Create the 'mainCard' element
     const mainCard = document.createElement('section');
     mainCard.innerHTML = `
@@ -24,15 +33,11 @@ window.addEventListener('load', () => {
     mainCard.style.flexDirection = 'column';
     mainCard.style.width = '25%';
 
-    //Use JavaScript to manipulate CSS of <button>
-    button.textContent = "Click for MORE Puppies!";
-});
-
-//Make the HMTL button dynamic
-button.addEventListener('click', async() => {
     const puppyBowlAPICall  = await fetch ('https://fsa-puppy-bowl.herokuapp.com/api/2310-FSA-ET-WEB-FT-SF/players');
     const puppyBowlAPICallResult = await puppyBowlAPICall.json();
+
     console.log(puppyBowlAPICallResult);
+    button.textContent = 'Go Back';
 
 });
 
