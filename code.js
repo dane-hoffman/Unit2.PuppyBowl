@@ -20,6 +20,7 @@ button.addEventListener('click', async() => {
     const singlePuppyPlayer = Math.floor(Math.random() * puppyPlayers.length);
     const puppyName = puppyPlayers[singlePuppyPlayer].name;
     const puppyBreed = puppyPlayers[singlePuppyPlayer].breed;
+    const puppyPicture = puppyPlayers[singlePuppyPlayer].imageUrl;
 
     console.log(puppyName);
 
@@ -30,6 +31,7 @@ button.addEventListener('click', async() => {
     mainCard.innerHTML = `
     <h4>Puppy: ${puppyName}</h4>
     <h4>Breed: ${puppyBreed}</h4>
+    <img src=${puppyPicture} alt="Picture of a puppy"/>
     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
     Donec ut ante nec justo eleifend venenatis.
     Proin sollicitudin egestas erat, eu.</p>
