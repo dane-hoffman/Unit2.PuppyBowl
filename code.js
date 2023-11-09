@@ -53,8 +53,11 @@ button.addEventListener('click', async() => {
 
     });
     
-    const allPupppies = document.querySelector(`#allPuppies`);
-    console.log(allPuppies);
+    const allPupppiesButton = document.querySelector(`#allPuppies`);
+    allPupppiesButton.addEventListener('click', () => {
+        console.log(`allPuppies`);
+    });
+    
     //Displays a list of all puppies in the roster (make the mainCard dissappear)
     
             //Clicking on single puppy in list sets the mainCard values to that puppy
