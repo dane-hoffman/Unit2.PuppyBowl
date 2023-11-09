@@ -16,7 +16,7 @@ button.addEventListener('click', async() => {
     const puppyPlayers = puppyBowlAPIData.players;
 
     console.log(puppyPlayers);
-    const puppyName = `Scooby Doo`;
+    const puppyName = puppyPlayers[0].name;
 
     //Create the 'mainCard' element
     //Set the puppyName equal to the name of a puppy object from the API
